@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Cargos {
-
     private List<Cargo> cargoList;
+    private String filePath = "src/main/resources/jsonfiles/cargos.json";
 
     public void DownloadData(){
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            File file = new File("src/main/resources/jsonfiles/cargos.json");
+            File file = new File(filePath);
             cargoList = Arrays.asList(objectMapper.readValue(file, Cargo[].class));
         } catch (IOException e) {
             e.printStackTrace();
@@ -20,7 +20,7 @@ public class Cargos {
     }
 
     public double[] GetWeight(int flightId){
-        // total_weight [cargo_weight, baggage_weight, total_weight]
+        // total_weight {cargo_weight, baggage_weight, total_weight}
         double[] total_weight = new double[] {0,0,0};
         for(Cargo cargo: cargoList){
             if(Integer.parseInt(cargo.getFlightId()) == flightId){
@@ -58,6 +58,19 @@ public class Cargos {
             }
         }
         return total_number;
+    }
+
+
+    public List<Cargo> getCargoList() {
+        return cargoList;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
 }

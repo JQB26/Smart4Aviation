@@ -8,11 +8,12 @@ import java.util.List;
 
 public class Flights {
     private List<Flight> flightList;
+    private String filePath = "src/main/resources/jsonfiles/flights.json";
 
     public void DownloadData(){
         try{
             ObjectMapper objectMapper = new ObjectMapper();
-            File file = new File("src/main/resources/jsonfiles/flights.json");
+            File file = new File(filePath);
             flightList = Arrays.asList(objectMapper.readValue(file, Flight[].class));
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,22 +27,6 @@ public class Flights {
             }
         }
         return -1;
-    }
-
-    public int[] GetNumberOfFlights(String IATACode, String date){
-        // total_number [number_of_departures, number_of_arrivals]
-        int[] total_number = new int[] {0,0};
-        for(Flight flight: flightList){
-            if(flight.getDepartureDate().substring(0,10).equals(date)){
-                if(flight.getDepartureAirportIATACode().equals(IATACode)){
-                    total_number[0]++;
-                }
-                if(flight.getArrivalAirportIATACode().equals(IATACode)){
-                    total_number[1]++;
-                }
-            }
-        }
-        return total_number;
     }
 
     public List<Integer> GetArrivingFlightsId(String IATACode, String date){
@@ -62,6 +47,19 @@ public class Flights {
             }
         }
         return flights_id;
+    }
+
+
+    public List<Flight> getFlightList() {
+        return flightList;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
 }
