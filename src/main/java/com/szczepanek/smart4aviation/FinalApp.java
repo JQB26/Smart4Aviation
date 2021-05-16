@@ -1,3 +1,8 @@
+package com.szczepanek.smart4aviation;
+
+import com.szczepanek.smart4aviation.cargos.Cargos;
+import com.szczepanek.smart4aviation.flights.Flights;
+
 import java.util.List;
 
 public class FinalApp {
@@ -9,29 +14,29 @@ public class FinalApp {
         cargos = new Cargos();
     }
 
-    public void DownloadData(){
+    public void DownloadData() {
         flights.DownloadData();
         cargos.DownloadData();
     }
 
     // returns {cargo_weight, baggage_weight, total_weight}
-    public double[] GetFlightWeight(int flightNumber, String date){
+    public double[] GetFlightWeight(int flightNumber, String date) {
         return cargos.GetWeight(flights.GetFlightId(flightNumber, date));
     }
 
     // returns {number_of_departing_flights, number_of_arriving_flights, number_of_baggage_arriving, number_of_baggage_departing}
-    public int[] GetNumberOfFlightsAndBaggage(String IATACode, String date){
+    public int[] GetNumberOfFlightsAndBaggage(String IATACode, String date) {
         int[] result = new int[4];
 
         List<Integer> arriving_flights = flights.GetArrivingFlightsId(IATACode, date);
         result[1] = arriving_flights.size();
-        for(int flightId: arriving_flights){
+        for (int flightId : arriving_flights) {
             result[2] += cargos.GetTotalNumberOfBaggage(flightId);
         }
 
         List<Integer> departing_flights = flights.GetDepartingFlightsId(IATACode, date);
         result[0] = departing_flights.size();
-        for(int flightId: departing_flights){
+        for (int flightId : departing_flights) {
             result[3] += cargos.GetTotalNumberOfBaggage(flightId);
         }
 

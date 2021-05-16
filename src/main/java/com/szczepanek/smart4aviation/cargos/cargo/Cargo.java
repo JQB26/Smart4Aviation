@@ -1,3 +1,7 @@
+package com.szczepanek.smart4aviation.cargos.cargo;
+
+import com.szczepanek.smart4aviation.cargos.cargo.item.Item;
+
 public class Cargo {
 
     private String flightId;
@@ -14,7 +18,7 @@ public class Cargo {
     public Cargo() {
     }
 
-    public int GetTotalNumberOfBaggage(){
+    public int GetTotalNumberOfBaggage() {
         int total_number = 0;
         for (Item item : baggage) {
             total_number += Integer.parseInt(item.getPieces());

@@ -1,3 +1,5 @@
+package com.szczepanek.smart4aviation.flights.flight;
+
 public class Flight {
 
     private String flightId;

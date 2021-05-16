@@ -1,3 +1,5 @@
+package com.szczepanek.smart4aviation.cargos.cargo.item;
+
 public class Item {
 
     private String id;

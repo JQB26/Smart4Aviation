@@ -1,4 +1,7 @@
+package com.szczepanek.smart4aviation.flights;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.szczepanek.smart4aviation.flights.flight.Flight;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +13,8 @@ public class Flights {
     private List<Flight> flightList;
     private String filePath = "src/main/resources/jsonfiles/flights.json";
 
-    public void DownloadData(){
-        try{
+    public void DownloadData() {
+        try {
             ObjectMapper objectMapper = new ObjectMapper();
             File file = new File(filePath);
             flightList = Arrays.asList(objectMapper.readValue(file, Flight[].class));
@@ -20,29 +23,29 @@ public class Flights {
         }
     }
 
-    public int GetFlightId(int flightNumber, String date){
-        for(Flight flight: flightList){
-            if(flight.getFlightNumber().equals(Integer.toString(flightNumber)) && (flight.getDepartureDate().substring(0,10)).equals(date)){
+    public int GetFlightId(int flightNumber, String date) {
+        for (Flight flight : flightList) {
+            if (flight.getFlightNumber().equals(Integer.toString(flightNumber)) && (flight.getDepartureDate().substring(0, 10)).equals(date)) {
                 return Integer.parseInt(flight.getFlightId());
             }
         }
         return -1;
     }
 
-    public List<Integer> GetArrivingFlightsId(String IATACode, String date){
+    public List<Integer> GetArrivingFlightsId(String IATACode, String date) {
         List<Integer> flights_id = new ArrayList<>();
-        for(Flight flight: flightList){
-            if(flight.getArrivalAirportIATACode().equals(IATACode) && flight.getDepartureDate().substring(0,10).equals(date)){
+        for (Flight flight : flightList) {
+            if (flight.getArrivalAirportIATACode().equals(IATACode) && flight.getDepartureDate().substring(0, 10).equals(date)) {
                 flights_id.add(Integer.parseInt(flight.getFlightId()));
             }
         }
         return flights_id;
     }
 
-    public List<Integer> GetDepartingFlightsId(String IATACode, String date){
+    public List<Integer> GetDepartingFlightsId(String IATACode, String date) {
         List<Integer> flights_id = new ArrayList<>();
-        for(Flight flight: flightList){
-            if(flight.getDepartureAirportIATACode().equals(IATACode) && flight.getDepartureDate().substring(0,10).equals(date)){
+        for (Flight flight : flightList) {
+            if (flight.getDepartureAirportIATACode().equals(IATACode) && flight.getDepartureDate().substring(0, 10).equals(date)) {
                 flights_id.add(Integer.parseInt(flight.getFlightId()));
             }
         }
