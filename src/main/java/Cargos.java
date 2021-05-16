@@ -19,43 +19,45 @@ public class Cargos {
         }
     }
 
-    public double GetCargoWeight_kg(int flightId){
-        double total_weight = -1;
+    public double[] GetWeight(int flightId){
+        // total_weight [cargo_weight, baggage_weight, total_weight]
+        double[] total_weight = new double[] {0,0,0};
         for(Cargo cargo: cargoList){
             if(Integer.parseInt(cargo.getFlightId()) == flightId){
-                total_weight = 0;
+                //cargo weight
                 for(int i = 0; i < cargo.getCargo().length; i++){
                     if(cargo.getCargo()[i].getWeightUnit().equals("kg")){
-                        total_weight += Double.parseDouble(cargo.getCargo()[i].getWeight());
+                        total_weight[0] += Double.parseDouble(cargo.getCargo()[i].getWeight());
                     }
                     else{
-                        total_weight += Double.parseDouble(cargo.getCargo()[i].getWeight()) * 0.45359237;
+                        total_weight[0] += Double.parseDouble(cargo.getCargo()[i].getWeight()) * 0.45359237;
                     }
                 }
-            }
-        }
-        return total_weight;
-    }
-
-    public double GetBaggageWeight_kg(int flightId){
-        double total_weight = -1;
-        for(Cargo cargo: cargoList){
-            if(Integer.parseInt(cargo.getFlightId()) == flightId){
-                total_weight = 0;
+                //baggage weight
                 for(int i = 0; i < cargo.getBaggage().length; i++){
                     if(cargo.getBaggage()[i].getWeightUnit().equals("kg")){
-                        total_weight += Double.parseDouble(cargo.getBaggage()[i].getWeight());
+                        total_weight[1] += Double.parseDouble(cargo.getBaggage()[i].getWeight());
                     }
                     else{
-                        total_weight += Double.parseDouble(cargo.getBaggage()[i].getWeight()) * 0.45359237;
+                        total_weight[1] += Double.parseDouble(cargo.getBaggage()[i].getWeight()) * 0.45359237;
                     }
                 }
             }
         }
+        total_weight[2] = total_weight[0] + total_weight[1];
         return total_weight;
     }
 
-    public double GetTotalWeight_kg(int flightId){
-        return GetBaggageWeight_kg(flightId) + GetCargoWeight_kg(flightId);
+    public int GetTotalNumberOfBaggage(int flightId){
+        int total_number = 0;
+        for(Cargo cargo: cargoList){
+            if(Integer.parseInt(cargo.getFlightId()) == flightId){
+                for(Item item: cargo.getBaggage()){
+                    total_number += Integer.parseInt(item.getPieces());
+                }
+            }
+        }
+        return total_number;
     }
+
 }
