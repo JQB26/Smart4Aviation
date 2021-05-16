@@ -5,8 +5,8 @@
 - GetFlightWeight(int flightNumber, String date)
 - GetNumberOfFlightsAndBaggage(String IATACode, String date)
 
-## GetFlightWeight is the first funcionality. It returns int[], where {cargo_weight, baggage_weight, total_weight}
-## GetNumberOfFlightsAndBaggage is the second funcionality. It returns int[], where {number_of_departing_flights, number_of_arriving_flights, number_of_baggage_arriving, number_of_baggage_departing}
+GetFlightWeight is the first funcionality. It returns int[], where {cargo_weight, baggage_weight, total_weight}
+GetNumberOfFlightsAndBaggage is the second funcionality. It returns int[], where {number_of_departing_flights, number_of_arriving_flights, number_of_baggage_arriving, number_of_baggage_departing}
 
 
 My assumptions:
